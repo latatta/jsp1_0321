@@ -1,4 +1,4 @@
-package test;
+package day01;
 
 
 // vo, dto 클래스

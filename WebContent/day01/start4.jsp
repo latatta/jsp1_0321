@@ -1,6 +1,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
-<%@page import="test.MyUser"%>
+<%@page import="day01.MyUser"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -29,6 +29,7 @@ td {
 			<th>이름</th>
 			<th>나이</th>
 			<th>거주지</th>
+			<th>비고</th>
 		</tr>
 		<!-- 아래 1행 한명의 MyUser 객체 출력을 list 크기만큼 반복합니다. -->
 		<% for (MyUser user : list){	%>
@@ -36,6 +37,10 @@ td {
 				<td><%= user.getName() %></td>
 				<td><%= user.getAge() %></td>
 				<td><%= user.getAddress() %></td>
+				<td>
+					<%
+						if(user.getAge()<20) out.print("청소년");
+					%>
 			</tr>
 		<%	}	%>
 	
