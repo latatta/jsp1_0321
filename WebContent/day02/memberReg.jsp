@@ -45,6 +45,9 @@ td {
 	    <i class="fa-solid fa-camera-retro" style="color:skyblue;font-size: 1.5em;"></i></h3>    
 	<!-- memberReg.html에서 입력한 7개의 사용자 입력값을 전달받아서 table태그에 출력해보세요. -->
 	<%
+		// method="post"방식으로 데이터 전달되었을때 인코딩 꼭 하세요.
+		request.setCharacterEncoding("UTF-8");
+		
 		// hobby 파라미터 받아서 출력하는 것은 잘 안되면 빼놓고 해도 됩니다.
 		String name = request.getParameter("name");
 		String email = request.getParameter("email");
