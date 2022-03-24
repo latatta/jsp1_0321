@@ -17,6 +17,59 @@ public class HrdMemberDao {
 		return dao;
 	}
 	
+	public void insert(HrdMember vo) {
+		Connection conn = OracleConnectUtil.connect();
+		PreparedStatement pstmt = null;
+		/*
+		 * String sql = "INSERT INTO IDEV.MEMBER_TBL_02" +
+		 * "(CUSTNO, CUSTNAME, PHONE, ADDRESS, JOINDATE, GRADE, CITY)" +
+		 * "VALUES(MEMBER_seq.nextval, ?, ?, ?, sysdate, ?, ?)";
+		 */
+		String sql = "INSERT INTO IDEV.MEMBER_TBL_02" +
+				"(CUSTNO, CUSTNAME, PHONE, ADDRESS, JOINDATE, GRADE, CITY)" +
+				"VALUES(?, ?, ?, ?, sysdate, ?, ?)";
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setNString(2, vo.getCustName());
+			pstmt.setNString(3, vo.getPhone());
+			pstmt.setNString(4, vo.getAddr());
+			pstmt.setNString(5, vo.getGrade());
+			pstmt.setNString(6, vo.getCity());
+			pstmt.setInt(1, vo.getCustNo());
+			
+			pstmt.execute();
+			System.out.println("회원등록이 완료되었습니다.");
+			pstmt.close();
+			
+		} catch (Exception e) {
+			System.out.println("HrdMember 실행 오류 : " + e.getMessage());
+		}
+		OracleConnectUtil.close(conn);
+	}
+	
+	public int getNextSeq() {
+		Connection conn = OracleConnectUtil.connect();
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		String sql="select member_seq.nextval from dual";
+		int result = 0;
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			rs = pstmt.executeQuery();
+			
+			if (rs.next()) {
+				result = rs.getInt(1);
+			}
+			pstmt.close();
+		} catch (SQLException e) {
+			System.out.println("HrdMemberDao next seq 오류 : " + e.getMessage());
+		}
+		OracleConnectUtil.close(conn);
+		return result;
+		
+	}
 	// 회원정보 수정 : phone, address, city 컬럼만 수정하고 조건은 기본키 값입니다.
 	public void update(HrdMember vo) {
 		Connection conn = OracleConnectUtil.connect();

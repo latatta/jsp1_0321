@@ -26,6 +26,16 @@ button {
     margin: 5px;
 }
 </style>
+<!-- src 속성에 지정한 자바스크립트 소스가 그대로 삽입됩니다. -->
+<script src="member_valid.js"></script>
+<script type="text/javascript">
+	function isSubmit() {
+		const frm = document.forms[0];
+		if (valid_check()) {
+			frm.submit();
+		}
+	}
+</script>
 </head>
 <body>
 	<% 
@@ -65,6 +75,8 @@ button {
 	<input value="<%= member.getAddr() %>"><br>
 	<input value="<%= member.getGrade() %>"><br>
 	<input value="<%= member.getCity() %>"> --%>
+	
+	<% if (member != null) {	%>
 	
 <h4 style="text-align: center;">홈쇼핑 회원 수정</h4>
         <form action="member_update.jsp" method="post">  
@@ -106,7 +118,8 @@ button {
                 </tr>
                 <tr>
                     <td colspan="2" style="text-align: center;">
-                        <button type="submit" >저장</button>
+                        <!-- <button type="submit" >저장</button> -->
+                        <button type="button" onclick="isSubmit()">저장</button>
                         <button type="reset">다시쓰기</button>
                         <!-- button로 링크 또는 기능 설정하기
                         onclick 이벤트와 자바스크립트 명령을 이용합니다.
@@ -119,6 +132,6 @@ button {
         </form>
 
 
-	
+	<% } %>
 </body>
 </html>
