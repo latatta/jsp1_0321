@@ -16,7 +16,35 @@ public class HrdMemberDao {
 	public static HrdMemberDao getInstance() {
 		return dao;
 	}
-	
+
+	public List<HrdMember> searchName(String name) {
+		Connection conn = OracleConnectUtil.connect();
+		ResultSet rs = null;
+		PreparedStatement pstmt = null;
+		String sql = "SELECT * FROM MEMBER_TBL_02 mt WHERE CUSTNAME = ?";
+		List<HrdMember> list = new ArrayList<>();
+		
+		try {
+			pstmt = conn.prepareStatement(sql);
+			pstmt.setNString(1, name);
+			rs = pstmt.executeQuery();
+			
+			while (rs.next()) {
+				list.add(new HrdMember(rs.getInt(1), 
+										rs.getNString(2),
+										rs.getNString(3),
+										rs.getNString(4),
+										rs.getDate(5),
+										rs.getNString(6),
+										rs.getNString(7)));
+			}
+			
+		} catch (SQLException e) {
+			System.out.println("HrdMemberDao selectAll : " + e.getMessage());
+		}
+		OracleConnectUtil.close(conn);
+		return list;
+	}
 	public void insert(HrdMember vo) {
 		Connection conn = OracleConnectUtil.connect();
 		PreparedStatement pstmt = null;
@@ -79,13 +107,11 @@ public class HrdMemberDao {
 		try {
 			pstmt = conn.prepareStatement(sql);
 	
-			pstmt.setString(1, vo.getPhone());
+			pstmt.setNString(1, vo.getPhone());
 			pstmt.setNString(2, vo.getAddr());
 			pstmt.setNString(3, vo.getCity());
 			pstmt.setInt(4, vo.getCustNo());
-			
 			pstmt.execute();
-			System.out.println("회원정보 변경이 완료되었습니다.");
 			pstmt.close();
 			
 		} catch (SQLException e) {

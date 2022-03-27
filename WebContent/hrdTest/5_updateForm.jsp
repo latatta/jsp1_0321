@@ -37,7 +37,7 @@
 			<ul class="container">
 				<li><a href="2_insertForm.jsp">회원등록</a></li>
 				<li><a href="4_memberList.jsp">회원목록조회/수정</a></li>
-				<li><a href="7_saleList">회원매출조회</a></li>
+				<li><a href="7_saleList.jsp">회원매출조회</a></li>
 				<li><a href="1_index.jsp">홈으로</a></li>
 			</ul>
 		</nav>
@@ -51,8 +51,8 @@
         -->
 
 				<!-- 화면에 표시하지 않고 입력요소로 전달하고 싶을 때 type="hidden" -->
-				<input type="hidden" name="num" value=<%=member.getCustNo()%>
-					disabled="disabled">
+				<input type="hidden" name="num" value=<%=member.getCustNo()%>>
+				<!-- hidden 추가 대신 사용할 다른 방법은 회원번호 input의 readonly="readonly" 입니다. -->
 				<table style="width: 70%; margin: auto;">
 					<tr>
 						<td class="col1_title">회원번호(자동발생)</td>
@@ -84,7 +84,8 @@
 					<tr>
 						<td class="col1_title">고객등급[A:VIP,B:일반,C:직원]</td>
 						<td><input type="text" name="grade"
-							value=<%=member.getGrade()%> disabled="disabled"></td>
+							value=<%= member.getGrade() %>
+							disabled="disabled"></td>
 					</tr>
 					<tr>
 						<td class="col1_title">도시코드</td>
