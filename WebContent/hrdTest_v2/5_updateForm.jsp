@@ -23,9 +23,11 @@
 </head>
 <body>
 	<%
-		int custNo = Integer.parseInt(request.getParameter("custno"));
-	HrdMemberDao dao = HrdMemberDao.getInstance();
-	HrdMember member = dao.selectOne(custNo);
+	HrdMember member =  (HrdMember) request.getAttribute("member");
+/* 	if (member == null) {
+		out.print("<script>alert('검색값이 없습니다.');location.href = 'get_test.jsp;");
+		out.print("</script>");
+	}	// else가 없으면 처리순서 : html 태그로 랜더링을 하고 out.print 자바코드 실행 */
 	%>
 	<div class="wrap_container">
 		<header>
@@ -33,14 +35,7 @@
 		</header>
 		<!-- Dao 클래스에 insert() 메소드 만듭니다. - 지금 이 화면을 등록화면에 맞게 수정하세요.
 		 - member_insert.js를 구현하세요.(사용자 입력값으로 db테이블에 insert하기)  -->
-		<nav>
-			<ul class="container">
-				<li><a href="2_insertForm.jsp">회원등록</a></li>
-				<li><a href="4_memberList.jsp">회원목록조회/수정</a></li>
-				<li><a href="7_saleList.jsp">회원매출조회</a></li>
-				<li><a href="1_index.jsp">홈으로</a></li>
-			</ul>
-		</nav>
+		<%@include file="top.jsp" %>
 		<section
 			style="height: 500px; background-color: rgb(211, 211, 211); padding-top: 10px;">
 
